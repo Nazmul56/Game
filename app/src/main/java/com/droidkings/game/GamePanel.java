@@ -1,6 +1,8 @@
 package com.droidkings.game;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -12,7 +14,10 @@ import android.view.SurfaceView;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
+    public static final int WIDTH = 856;
+    public static final int HIGHT = 480;
     private MainThread thread;
+    private Background bg;
     public GamePanel(Context context)
     {
         super(context);
@@ -43,6 +48,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.gamebg1));
+        bg.setVector(-5);
+
         //Safely start the game loop
         thread.setRunning(true);
         thread.start();
@@ -55,5 +63,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void update()
     {
 
+
+        bg.update();
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        //Scale
+        final float scaleFactorX = getWidth() / WIDTH ;
+        final float scaleFactorY = getHeight() / HIGHT ;
+
+        if(canvas != null) {
+            final int savedState = canvas.save();
+            canvas.scale(scaleFactorX, scaleFactorY);
+
+            bg.draw(canvas);
+            canvas.restoreToCount(savedState);
+        }
     }
 }
