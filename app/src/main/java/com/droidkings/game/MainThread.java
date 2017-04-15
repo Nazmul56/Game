@@ -30,7 +30,7 @@ public class MainThread extends  Thread{
         long waitTime;
         long totalTime = 0;
         int frameCount = 0;
-        long targetTime = 100/FPS;
+        long targetTime = 1000/FPS;
         while(running) {
             startTime = System.nanoTime();
             canvas = null;
@@ -68,6 +68,7 @@ public class MainThread extends  Thread{
             {
                 averageFPS = 1000/ (totalTime/frameCount) / 1000000;
                 frameCount = 0;
+                totalTime = 0 ;
             }
         }
 
