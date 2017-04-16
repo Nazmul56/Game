@@ -67,6 +67,6 @@ public class Player extends GameObject{
     public int getScore(){ return score;}
     public boolean getPlaying(){ return playing;}
     public void setPlaying(boolean b){playing = b;}
-    public void resetDYA(){dy = 0;}
+    public void resetDY(){dy = 0;}
     public void resetScore(){score = 0;}
 }
